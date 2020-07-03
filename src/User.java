@@ -9,11 +9,11 @@ import java.sql.Statement;
 public class User {
     private String username;
     private String password;
-    private int repeat=1;
+    private char repeat='y';
 
 
     public User() throws SQLException {
-        while (repeat == 1) {
+        while (repeat == 'y') {
             Scanner scanner = new Scanner(System.in);
             System.out.printf("Enter UserName:");
             username = scanner.nextLine();
@@ -35,6 +35,7 @@ public class User {
                 ResultSet rs = statement.executeQuery(query);
                 if (rs.next()) {
                     System.out.println("Login Successful");
+                    new ATM(username);
                 } else {
                     statement.executeUpdate(query2);            // using executeUpdate since were not performing selection query
                     System.out.println("Account Created");
@@ -45,7 +46,7 @@ public class User {
                 e.printStackTrace();
             }
             System.out.printf("Do you want to repeat:");
-            this.repeat = scanner.nextInt();
+            this.repeat = scanner.nextLine().charAt(0);
         }
     }
 }
